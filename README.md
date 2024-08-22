@@ -1,6 +1,6 @@
 # apis
 
-A new Flutter project.
+A new Flutter project to handle apis .
 
 ## Getting Started
 
