@@ -11,13 +11,16 @@ abstract class WebServices{
 
  @GET('users')
   Future<List<User>> getAallUsers();
+
+ @GET('users/{id}')
+  Future<User> getUserById(@Path() int userId);
 }
 
 Dio createAndSetupDio(){
   Dio dio = Dio() ;
   dio
-    ..options.connectTimeout = 100 * 1000
-    ..options.receiveTimeout = 100 * 1000 ;
+    ..options.connectTimeout = 200 * 1000
+    ..options.receiveTimeout = 200 * 1000 ;
 
   dio.interceptors.add(LogInterceptor(
     responseBody: true,

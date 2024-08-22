@@ -16,9 +16,13 @@ class HomeScreen extends StatefulWidget{
 
 class _HomeScreenState extends State<HomeScreen> {
   List<User> userList = [] ;
+  User user = User() ;
+  
  void initState(){
     super.initState() ;
-   BlocProvider.of<MyCubit>(context).emitGetAllUsers();
+  // BlocProvider.of<MyCubit>(context).emitGetAllUsers();
+   BlocProvider.of<MyCubit>(context).emitGetUserDetails(2);
+   
  }
   @override
   Widget build(BuildContext context) {
@@ -28,32 +32,52 @@ class _HomeScreenState extends State<HomeScreen> {
    ),
    body:Column(
      children:[
+       // BlocBuilder<MyCubit,MyState>(
+       //   builder:(context,state){
+       //     if(state is GetAllUsers){
+       //   userList=(state).allUsersList ;
+       //   return ListView.builder(
+       //     shrinkWrap: true,
+       //       padding: EdgeInsets.all(10),
+       //       itemCount: userList.length,
+       //       itemBuilder: (BuildContext context ,int index){
+       //         return Container(
+       //           height: 50,
+       //           color: Colors.amber,
+       //           child: Center(
+       //           child: Text(
+       //             userList[index].email.toString()
+       //           )
+       //           ),
+       //         );
+       //       }
+       //   );
+       //     }else{
+       //       return Center(
+       //         child: CircularProgressIndicator(),
+       //       );
+       //     }
+       //   }
+       // )
        BlocBuilder<MyCubit,MyState>(
-         builder:(context,state){
-           if(state is GetAllUsers){
-         userList=(state).allUsersList ;
-         return ListView.builder(
-           shrinkWrap: true,
-             padding: EdgeInsets.all(10),
-             itemCount: userList.length,
-             itemBuilder: (BuildContext context ,int index){
-               return Container(
-                 height: 50,
-                 color: Colors.amber,
-                 child: Center(
-                 child: Text(
-                   userList[index].email.toString()
-                 )
-                 ),
+           builder:(context,state){
+             if(state is GetUserDetails){
+               user=(state).userDetails ;
+                     return Container(
+                       height: 50,
+                       color: Colors.amber,
+                       child: Center(
+                           child: Text(
+                               user.name.toString()
+                           )
+                       ),
+                     );
+             }else{
+               return Center(
+                 child: CircularProgressIndicator(),
                );
              }
-         );
-           }else{
-             return Center(
-               child: CircularProgressIndicator(),
-             );
            }
-         }
        )
      ]
    )
