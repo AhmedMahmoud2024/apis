@@ -12,8 +12,15 @@ abstract class WebServices{
  @GET('users')
   Future<List<User>> getAallUsers();
 
- @GET('users/{id}')
+ @GET("users/{id}")
   Future<User> getUserById(@Path() int userId);
+
+ @POST("users")
+ Future<User> createNewUser(@Body() User newUser,@Header("Authorization") String token) ;
+
+ @DELETE("users/{id}")
+  Future<dynamic> deleteUser(@Path() String id,@Header("Authorization") String token) ;
+
 }
 
 Dio createAndSetupDio(){
